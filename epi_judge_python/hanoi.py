@@ -8,8 +8,16 @@ NUM_PEGS = 3
 
 
 def compute_tower_hanoi(num_rings):
-    # TODO - you fill in here.
-    return []
+    moves = []
+    def moveStack(n_rings, start, stop):
+        if n_rings > 0:
+            intermediate = [peg for peg in [0,1,2] if peg not in [start, stop]]
+            moveStack(n_rings - 1, start, intermediate[0])
+            
+            moves.append((start, stop))
+            moveStack(n_rings - 1, intermediate[0], stop)
+    moveStack(num_rings, 0, 1)
+    return moves
 
 
 @enable_executor_hook
